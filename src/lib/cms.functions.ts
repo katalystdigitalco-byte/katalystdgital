@@ -65,7 +65,7 @@ function tableFns<T extends z.ZodTypeAny>(
 
   const upsert = createServerFn({ method: "POST" })
     .middleware([requireSupabaseAuth])
-    .inputValidator((d: unknown) => schema.parse(d))
+    .validator((d: unknown) => schema.parse(d))
     .handler(async ({ data, context }) => {
       await assertStaff(context);
       const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
@@ -89,7 +89,7 @@ function tableFns<T extends z.ZodTypeAny>(
 
   const remove = createServerFn({ method: "POST" })
     .middleware([requireSupabaseAuth])
-    .inputValidator((d: unknown) => IdSchema.parse(d))
+    .validator((d: unknown) => IdSchema.parse(d))
     .handler(async ({ data, context }) => {
       await assertStaff(context);
       const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
